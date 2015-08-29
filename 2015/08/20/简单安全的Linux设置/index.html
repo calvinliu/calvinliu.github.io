@@ -22,7 +22,7 @@
 
 
 
-  <meta name="keywords" content="推荐,计算机,软件," />
+  <meta name="keywords" content="Linux,VPS,计算机," />
 
 
 
@@ -45,7 +45,7 @@
 
 
 
-  <title> WinMerge // 6sp Notes </title>
+  <title> 简单安全的Linux设置 // 6sp Notes </title>
 </head>
 
 <body>
@@ -133,7 +133,7 @@
           
           
             
-              WinMerge
+              简单安全的Linux设置
             
           
         </h1>
@@ -141,14 +141,14 @@
 
       <div class="post-meta">
         <span class="post-time">
-          发表于 2015-07-12
+          发表于 2015-08-20
         </span>
 
         
           <span class="post-category">
             &nbsp; | &nbsp; 分类于
             
-              <a href="/categories/推荐/">推荐</a>
+              <a href="/categories/计算机/">计算机</a>
 
               
               
@@ -161,8 +161,8 @@
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2015/07/12/WinMerge/#comments" >
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/07/12/WinMerge/"></span>
+            <a href="/2015/08/20/简单安全的Linux设置/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/08/20/简单安全的Linux设置/"></span>
             </a>
           </span>
           
@@ -176,9 +176,20 @@
       
 
       
-        <p>如果你需要手工比对内容相似的文本或代码，那么就使用WinMerge吧，它能够自动检查出两个文件里的不同之处，最重要的是免费、小巧。</p>
-<p><a href="http://winmerge.org/" target="_blank" rel="external">WinMerge</a></p>
-<p><img src="http://winmerge.org/about/screenshots/filecmp.png" alt=""></p>
+        <h1 id="写在前面">写在前面</h1><p>之前开发的项目多数部署在内网中，即使部署在公网上，也有硬件防火墙作为屏障，系统安全性不需要过多的去担忧。<br>这次买了VPS，自己作为使用者和管理者不得不考虑安全的问题，下面的系统安全配置对于专业的运维工程师来说是小儿科，甚至还有漏洞，不过对我来说算是入门了，以后再补充啦！</p>
+<h1 id="配置">配置</h1><h2 id="1-使用_iptables_开启常规端口">1.使用 iptables 开启常规端口</h2><p>一般我们只需要开启常规服务端口,命令语法如下:<br><code>iptables -A INPUT -p tcp --dport 22 -j ACCEPT</code><br>    -A: 追加一个新的规则<br>    -p tcp: tcp协议的扩展<br>    —dport 22: 指定一个端口<br>    -j ACCEPT: 接受</p>
+<p>清空 iptables 默认规则:<br><code>iptables -F</code></p>
+<p>允许 22 端口（作为SSH访问使用）进入和返回:</p>
+<p><code>iptables -A INPUT -p tcp --dport 22 -j ACCEPT</code><br><code>iptables -A OUTPUT -p tcp --sport 22 -m state --state ESTABLISHED -j ACCEPT</code></p>
+<p>允许本机访问（测试使用）:</p>
+<p><code>iptables -A INPUT -s 127.0.0.1 -d 127.0.0.1 -j ACCEPT</code><br><code>iptables -A OUTPUT -s 127.0.0.1 -d 127.0.0.1 -j ACCEPT</code></p>
+<p>允许所有 IP 访问 80 和 443 端口（作为Http和Https使用）进入和返回:</p>
+<p><code>iptables -A INPUT -p tcp -s 0/0 --dport 80 -j ACCEPT</code><br><code>iptables -A OUTPUT -p tcp --sport 80 -m state --state ESTABLISHED -j ACCEPT</code><br><code>iptables -A INPUT -p tcp -s 0/0 --dport 443 -j ACCEPT</code><br><code>iptables -A OUTPUT -p tcp --sport 443 -m state --state ESTABLISHED -j ACCEPT</code></p>
+<p>允许 53 端口（作为DNS服务使用）进入和返回:</p>
+<p><code>iptables -A OUTPUT -p udp --dport 53 -j ACCEPT</code><br><code>iptables -A INPUT -p udp --sport 53 -j ACCEPT</code></p>
+<p>保存配置:<br><code>iptables-save &gt; /etc/sysconfig/iptables</code></p>
+<p>重新加载 iptables:<br><code>iptables -L</code></p>
+<h2 id="2-使用_fail2ban_屏蔽扫描SSH端口的IP">2.使用 fail2ban 屏蔽扫描SSH端口的IP</h2><p>安装（ubuntu）:<br><code>apt-get install fail2ban -y</code><br>查看日志<br><code>cat /var/log/fail2ban.log</code></p>
 
       
     </div>
@@ -187,11 +198,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/推荐/"> #推荐 </a>
+            <a href="/tags/Linux/"> #Linux </a>
+          
+            <a href="/tags/VPS/"> #VPS </a>
           
             <a href="/tags/计算机/"> #计算机 </a>
-          
-            <a href="/tags/软件/"> #软件 </a>
           
         </div>
       
@@ -200,13 +211,11 @@
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/07/12/我追过的期刊和报纸/">我追过的期刊和报纸</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/04/29/hello-world/">Hello World</a>
+              <a href="/2015/07/12/我追过的期刊和报纸/">我追过的期刊和报纸</a>
             
           </div>
         </div>
@@ -308,7 +317,7 @@
           <div class="post-toc">
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#写在前面"><span class="nav-number">1.</span> <span class="nav-text">写在前面</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置"><span class="nav-number">2.</span> <span class="nav-text">配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-使用_iptables_开启常规端口"><span class="nav-number">2.1.</span> <span class="nav-text">1.使用 iptables 开启常规端口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-使用_fail2ban_屏蔽扫描SSH端口的IP"><span class="nav-number">2.2.</span> <span class="nav-text">2.使用 fail2ban 屏蔽扫描SSH端口的IP</span></a></li></ol></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
@@ -536,9 +545,9 @@
 
     <script type="text/javascript">
       var disqus_shortname = '6spxyz';
-      var disqus_identifier = '2015/07/12/WinMerge/';
-      var disqus_title = 'WinMerge';
-      var disqus_url = 'http://6sp.xyz/2015/07/12/WinMerge/';
+      var disqus_identifier = '2015/08/20/简单安全的Linux设置/';
+      var disqus_title = '简单安全的Linux设置';
+      var disqus_url = 'http://6sp.xyz/2015/08/20/简单安全的Linux设置/';
 
       (function(){
         var dsq = document.createElement('script');
