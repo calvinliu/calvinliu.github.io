@@ -135,8 +135,86 @@
           
           
             
-              <a class="post-title-link" href="/2015/08/20/简单安全的Linux设置/">
-                简单安全的Linux设置
+              <a class="post-title-link" href="/2015/08/30/简单安全的Linux设置2/">
+                简单安全的Linux设置2
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2015-08-30
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/计算机/">计算机</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/08/30/简单安全的Linux设置2/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/08/30/简单安全的Linux设置2/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <h1 id="配置">配置</h1><h2 id="3-使用_DDoS_deflate_阻止小规模的DDoS攻击">3.使用 DDoS deflate 阻止小规模的DDoS攻击</h2><p>下载及安装：<br><code>cd ~</code><br><code>wget http://www.inetbase.com/scripts/ddos/install.sh</code><br><code>chmod +x install.sh</code><br><code>sudo ./install.sh</code></p>
+<h2 id="参考">参考</h2><p><a href="http://www.freehao123.com/linux-vps-root/" target="_blank" rel="external">Linux VPS主机安全-禁止Root登录,SSH密钥授权,Fail2ban,DDoS deflate</a><br><a href="http://ttt.tt/104/" target="_blank" rel="external">购买 Linux VPS 服务器后简单的安全设置</a><br><a href="http://drops.wooyun.org/tips/3029" target="_blank" rel="external">fail2ban防暴力破解介绍使用</a></p>
+
+        
+      
+    </div>
+
+    <div class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2015/08/20/简单安全的Linux设置1/">
+                简单安全的Linux设置1
               </a>
             
           
@@ -165,8 +243,8 @@
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2015/08/20/简单安全的Linux设置/#comments" >
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/08/20/简单安全的Linux设置/"></span>
+            <a href="/2015/08/20/简单安全的Linux设置1/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/08/20/简单安全的Linux设置1/"></span>
             </a>
           </span>
           
@@ -181,7 +259,7 @@
 
       
         
-          <h1 id="写在前面">写在前面</h1><p>之前开发的项目多数部署在内网中，即使部署在公网上，也有硬件防火墙作为屏障，系统安全性不需要过多的去担忧。<br>这次买了VPS，自己作为使用者和管理者不得不考虑安全的问题，下面的系统安全配置对于专业的运维工程师来说是小儿科，甚至还有漏洞，不过对我来说算是入门了，以后再补充啦！</p>
+          <h1 id="写在前面">写在前面</h1><p>之前开发的项目多数部署在内网中，即使部署在公网上，也有硬件防火墙作为屏障，系统安全性不需要过多的去担忧。<br>这次买了VPS，自己作为使用者和管理者不得不考虑安全的问题，下面的系统安全配置对于专业的运维工程师来说是小儿科，甚至还有漏洞，不过对我目前来说基本够用了，遇到好的方案后面再补充啦！</p>
 <h1 id="配置">配置</h1><h2 id="1-使用_iptables_开启常规端口">1.使用 iptables 开启常规端口</h2><p>一般我们只需要开启常规服务端口,命令语法如下:<br><code>iptables -A INPUT -p tcp --dport 22 -j ACCEPT</code><br>    -A: 追加一个新的规则<br>    -p tcp: tcp协议的扩展<br>    —dport 22: 指定一个端口<br>    -j ACCEPT: 接受</p>
 <p>清空 iptables 默认规则:<br><code>iptables -F</code></p>
 <p>允许 22 端口（作为SSH访问使用）进入和返回:</p>
@@ -192,7 +270,7 @@
 <p><code>iptables -A INPUT -p tcp -s 0/0 --dport 80 -j ACCEPT</code><br><code>iptables -A OUTPUT -p tcp --sport 80 -m state --state ESTABLISHED -j ACCEPT</code><br><code>iptables -A INPUT -p tcp -s 0/0 --dport 443 -j ACCEPT</code><br><code>iptables -A OUTPUT -p tcp --sport 443 -m state --state ESTABLISHED -j ACCEPT</code></p>
 <p>允许 53 端口（作为DNS服务使用）进入和返回:</p>
 <p><code>iptables -A OUTPUT -p udp --dport 53 -j ACCEPT</code><br><code>iptables -A INPUT -p udp --sport 53 -j ACCEPT</code></p>
-<p>保存配置:<br><code>iptables-save &gt; /etc/sysconfig/iptables</code></p>
+<p>保存配置:<br><code>iptables-save</code></p>
 <p>重新加载 iptables:<br><code>iptables -L</code></p>
 <h2 id="2-使用_fail2ban_屏蔽扫描SSH端口的IP">2.使用 fail2ban 屏蔽扫描SSH端口的IP</h2><p>安装（ubuntu）:<br><code>apt-get install fail2ban -y</code><br>查看日志<br><code>cat /var/log/fail2ban.log</code></p>
 
@@ -272,14 +350,11 @@
       
         
           <p>上网已有十来年，从网站到论坛，从博客到微博，获取的信息知识的途径越来越多，之前只能通过期刊获得，下面就说说我追过的期刊和报纸吧！</p>
-<p>[报纸]</p>
-<p>[xx晨报、现代x报、xx晚报]<br>卖报人推出的组合套餐1块钱3份，很久没有买报了，现在好像要1块钱1份了吧！</p>
-<p>[期刊]</p>
-<p>[大众软件]<br>记忆中最早读的一本关于电脑方面的期刊，好像内容以电脑游戏推荐和攻略为主，买的不是很多。</p>
-<p>[电脑报]<br>大概追了5年，每期必买，每个月出一份到后来每半个月出1份，价格从2.5元涨到3元，每年还会出合订本。每期版面很多，介绍硬件、软件、游戏等等。积攒一定的量，卖到回收站所得的钱还是蛮爽的。</p>
-<p>[电子游戏软件]</p>
-<p>[电脑爱好者]</p>
-<p>Description    Resource    Path    Location    Type<br>Cannot change version of project facet Dynamic Web Module to 2.5.    Repertory        line 1    Maven Java EE Configuration Problem</p>
+<h1 id="报纸">报纸</h1><p>[xx晨报、现代x报、xx晚报]<br>卖报人推出的组合套餐1块钱3份，很久没有买报了，现在好像要1块钱1份了吧！</p>
+<h1 id="期刊">期刊</h1><p>[大众软件]<br>内容以电脑游戏推荐和攻略为主，记忆中是我最早读的一本关于电脑方面的期刊，好像那一期有古墓丽影的攻略，之后买的不是很多。<br><img src="http://shopimg.kongfz.com.cn/20130712/1898695/1898695rJbEK0_b.jpg" alt=""></p>
+<p>[电脑报]<br>大概追了5年，每期必买，每个月出一份到后来每半个月出1份，价格从2.5元涨到3元，每年还会出合订本。每期版面很多，介绍硬件、软件、游戏等等。积攒一定的量，卖到回收站所得的钱还是蛮爽的。<br><img src="http://pic5.997788.com/pic_search/00/18/40/58/se18405890.jpg" alt=""></p>
+<p>[电子游戏软件]<br>主要做Tv game 、掌机方面的期刊，读了之后买了Game Boy、Play Station、Game Boy Advance…之后一段时间就沉迷于网游咯！<br><img src="http://www.kfzimg.com/G03/M01/68/DD/pYYBAFT5EzqATh8IAACgZJCxqaA995_b.jpg" alt="第一本"><br><img src="http://www.kfzimg.com/G00/M00/A5/34/ooYBAFSZXkqAI_YEAAJQ7oV5Ndw620_b.jpg" alt=""><br><img src="http://www.kfzimg.com/G00/M00/E2/8C/oYYBAFSZXICAcJBJAAIySd5miJY398_b.jpg" alt=""></p>
+<p>[电脑爱好者]<br>电脑报的杂志版，差不多买了有2年。<br><img src="http://c61.cnki.net/CJFD/big/DNAH/DNAH200222.jpg" alt=""></p>
 
         
       
@@ -486,7 +561,7 @@
         <div class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">4</span>
+              <span class="site-state-item-count">5</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

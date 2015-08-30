@@ -45,7 +45,7 @@
 
 
 
-  <title> 简单安全的Linux设置 // 6sp Notes </title>
+  <title> 简单安全的Linux设置1 // 6sp Notes </title>
 </head>
 
 <body>
@@ -133,7 +133,7 @@
           
           
             
-              简单安全的Linux设置
+              简单安全的Linux设置1
             
           
         </h1>
@@ -161,8 +161,8 @@
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2015/08/20/简单安全的Linux设置/#comments" >
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/08/20/简单安全的Linux设置/"></span>
+            <a href="/2015/08/20/简单安全的Linux设置1/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/08/20/简单安全的Linux设置1/"></span>
             </a>
           </span>
           
@@ -176,7 +176,7 @@
       
 
       
-        <h1 id="写在前面">写在前面</h1><p>之前开发的项目多数部署在内网中，即使部署在公网上，也有硬件防火墙作为屏障，系统安全性不需要过多的去担忧。<br>这次买了VPS，自己作为使用者和管理者不得不考虑安全的问题，下面的系统安全配置对于专业的运维工程师来说是小儿科，甚至还有漏洞，不过对我来说算是入门了，以后再补充啦！</p>
+        <h1 id="写在前面">写在前面</h1><p>之前开发的项目多数部署在内网中，即使部署在公网上，也有硬件防火墙作为屏障，系统安全性不需要过多的去担忧。<br>这次买了VPS，自己作为使用者和管理者不得不考虑安全的问题，下面的系统安全配置对于专业的运维工程师来说是小儿科，甚至还有漏洞，不过对我目前来说基本够用了，遇到好的方案后面再补充啦！</p>
 <h1 id="配置">配置</h1><h2 id="1-使用_iptables_开启常规端口">1.使用 iptables 开启常规端口</h2><p>一般我们只需要开启常规服务端口,命令语法如下:<br><code>iptables -A INPUT -p tcp --dport 22 -j ACCEPT</code><br>    -A: 追加一个新的规则<br>    -p tcp: tcp协议的扩展<br>    —dport 22: 指定一个端口<br>    -j ACCEPT: 接受</p>
 <p>清空 iptables 默认规则:<br><code>iptables -F</code></p>
 <p>允许 22 端口（作为SSH访问使用）进入和返回:</p>
@@ -187,7 +187,7 @@
 <p><code>iptables -A INPUT -p tcp -s 0/0 --dport 80 -j ACCEPT</code><br><code>iptables -A OUTPUT -p tcp --sport 80 -m state --state ESTABLISHED -j ACCEPT</code><br><code>iptables -A INPUT -p tcp -s 0/0 --dport 443 -j ACCEPT</code><br><code>iptables -A OUTPUT -p tcp --sport 443 -m state --state ESTABLISHED -j ACCEPT</code></p>
 <p>允许 53 端口（作为DNS服务使用）进入和返回:</p>
 <p><code>iptables -A OUTPUT -p udp --dport 53 -j ACCEPT</code><br><code>iptables -A INPUT -p udp --sport 53 -j ACCEPT</code></p>
-<p>保存配置:<br><code>iptables-save &gt; /etc/sysconfig/iptables</code></p>
+<p>保存配置:<br><code>iptables-save</code></p>
 <p>重新加载 iptables:<br><code>iptables -L</code></p>
 <h2 id="2-使用_fail2ban_屏蔽扫描SSH端口的IP">2.使用 fail2ban 屏蔽扫描SSH端口的IP</h2><p>安装（ubuntu）:<br><code>apt-get install fail2ban -y</code><br>查看日志<br><code>cat /var/log/fail2ban.log</code></p>
 
@@ -210,6 +210,8 @@
       
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/08/30/简单安全的Linux设置2/">简单安全的Linux设置2</a>
             
           </div>
 
@@ -279,7 +281,7 @@
         <div class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">4</span>
+              <span class="site-state-item-count">5</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -545,9 +547,9 @@
 
     <script type="text/javascript">
       var disqus_shortname = '6spxyz';
-      var disqus_identifier = '2015/08/20/简单安全的Linux设置/';
-      var disqus_title = '简单安全的Linux设置';
-      var disqus_url = 'http://6sp.xyz/2015/08/20/简单安全的Linux设置/';
+      var disqus_identifier = '2015/08/20/简单安全的Linux设置1/';
+      var disqus_title = '简单安全的Linux设置1';
+      var disqus_url = 'http://6sp.xyz/2015/08/20/简单安全的Linux设置1/';
 
       (function(){
         var dsq = document.createElement('script');
